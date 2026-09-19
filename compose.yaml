@@ -1,0 +1,38 @@
+services:
+  storage1:
+    image: storage:latest
+    restart: on-failure
+    environment:
+      TZ: Asia/Jakarta
+      DEPLOYD_RAFT: /etc/deployd_storage/etcd-raft.yaml
+    volumes:
+      - ./src/config/raft1.yml:/etc/deployd_storage/etcd-raft.yaml
+    ports:
+      - "9501:9090"
+    command: ["./storage"]
+  storage2:
+    image: storage:latest
+    restart: on-failure
+    environment:
+      TZ: Asia/Jakarta
+      DEPLOYD_RAFT: /etc/deployd_storage/etcd-raft.yaml
+    volumes:
+      - ./src/config/raft2.yml:/etc/deployd_storage/etcd-raft.yaml
+    ports:
+      - "9502:9090"
+    command: ["./storage"]
+  storage3:
+    image: storage:latest
+    restart: on-failure
+    environment:
+      TZ: Asia/Jakarta
+      DEPLOYD_RAFT: /etc/deployd_storage/etcd-raft.yaml
+    volumes:
+      - ./src/config/raft3.yml:/etc/deployd_storage/etcd-raft.yaml
+    ports:
+      - "9503:9090"
+    command: ["./storage"]
+
+volumes:
+  config:
+    driver: local
