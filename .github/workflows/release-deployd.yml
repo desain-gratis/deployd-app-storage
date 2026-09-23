@@ -35,7 +35,7 @@ jobs:
       - name: Send deploy metadata
         uses: desain-gratis/deployd-gh-action@v2
         with:
-          url: http://hz1:9401
+          url: http://tc-jkt1:9401
           namespace: deployd
           name: storage
           archive: dist
