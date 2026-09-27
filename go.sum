@@ -63,6 +63,8 @@ github.com/desain-gratis/common v0.0.0-20260927203653-68848123e3b2 h1:jv1NiuTI2r
 github.com/desain-gratis/common v0.0.0-20260927203653-68848123e3b2/go.mod h1:H2m2P3/0u0TAVAh64k+GycinlfOWFej51Inbscl8+rc=
 github.com/desain-gratis/common v0.0.0-20260927211012-e09302c783a2 h1:JWRa8Tf7U6TPKWseqaHsjQYupGZ1vv/+W5BYv8Pq3uw=
 github.com/desain-gratis/common v0.0.0-20260927211012-e09302c783a2/go.mod h1:H2m2P3/0u0TAVAh64k+GycinlfOWFej51Inbscl8+rc=
+github.com/desain-gratis/common v0.0.0-20260927213410-4dcdc2d897cf h1:WZ5EQ0UgllNU/IfdC3IpiisZ6azmF42MnUATlmWLCT0=
+github.com/desain-gratis/common v0.0.0-20260927213410-4dcdc2d897cf/go.mod h1:H2m2P3/0u0TAVAh64k+GycinlfOWFej51Inbscl8+rc=
 github.com/dgraph-io/badger v1.6.0/go.mod h1:zwt7syl517jmP8s94KqSxTlM6IMsdhYy6psNgSztDR4=
 github.com/dgraph-io/badger/v4 v4.9.6 h1:IQqMPVGLNCQr1b4Mu8lHkYm/xyqFRsyKaFEtyLi9CCQ=
 github.com/dgraph-io/badger/v4 v4.9.6/go.mod h1:Xa9dAupjbwAacupWFCpa6YEn9E1PjBXkfZYr2I/8aWg=

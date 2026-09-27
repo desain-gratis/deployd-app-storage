@@ -3,7 +3,7 @@ module github.com/desain-gratis/deployd-app-storage
 go 1.26
 
 require (
-	github.com/desain-gratis/common v0.0.0-20260927211012-e09302c783a2
+	github.com/desain-gratis/common v0.0.0-20260927213410-4dcdc2d897cf
 	github.com/dgraph-io/badger/v4 v4.9.6
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/rs/zerolog v1.34.0
