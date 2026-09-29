@@ -28,3 +28,5 @@ sync:
 get:
 	curl -H 'X-Namespace: *' "$(API_ENDPOINT)/user-profile"
 
+load-test:
+	k6 run -e RPS=100 --out csv=test/raw_results.csv test/k6-user-profile-test.js

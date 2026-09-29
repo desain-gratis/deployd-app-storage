@@ -26,6 +26,11 @@ export const options = {
     http_req_failed: ['rate<0.01'],
     http_req_duration: ['p(95)<1000'],
   },
+  // Adds p99 / p99.99 to the console summary + summary JSON export.
+  // Note: p99.99 is only statistically meaningful with a large sample
+  // size (tens of thousands of requests) — see notes below.
+  summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(90)', 'p(95)', 'p(99)', 'p(99.99)'],
+  discardResponseBodies: true, // we don't need response bodies, saves memory at high RPS
 };
 
 // ============================================================
