@@ -36,7 +36,7 @@ func main() {
 
 	router := httprouter.New()
 
-	enableStorageModule(ctx, router)
+	enableBadgerStorageModule(ctx, router)
 
 	wg := new(sync.WaitGroup)
 
@@ -51,7 +51,7 @@ func main() {
 	log.Info().Msgf("bye bye")
 }
 
-func enableStorageModule(appCtx context.Context, router *httprouter.Router) {
+func enableBadgerStorageModule(appCtx context.Context, router *httprouter.Router) {
 	db, err := badger.Open(badger.DefaultOptions("./tmp/storage.db"))
 	if err != nil {
 		log.Fatal().Msgf("UHUY %v", err)
@@ -64,10 +64,12 @@ func enableStorageModule(appCtx context.Context, router *httprouter.Router) {
 		content_badgerraft.TableConfig{Name: "user_profile", RefSize: 0},
 	)
 
-	raftCtx, _, err := runneretcd.RunWithConfig(appCtx, os.Getenv("DEPLOYD_RAFT"), "storage", badgerStorageApp)
+	storageClient, _, err := runneretcd.RunWithConfig(appCtx, os.Getenv("DEPLOYD_RAFT"), "storage", badgerStorageApp)
 	if err != nil {
 		log.Fatal().Msgf("err init raft: %v", err)
 	}
+
+	raftCtx := runneretcd.WithRaftContext(appCtx, storageClient)
 
 	userProfileRepo, err := badgerStorageApp.GetKVTable(raftCtx, "user_profile")
 	if err != nil {
