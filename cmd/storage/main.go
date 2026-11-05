@@ -105,7 +105,10 @@ func enableChDBStorageModule(appCtx context.Context, router *httprouter.Router) 
 	}
 
 	// init the state machine
-	app, err := chdbraft.New(appCtx, chDB, chdbraft.TableConfig{Name: "product", RefSize: 0, TableType: chdbraft.TableTypeKV})
+	app, err := chdbraft.New(appCtx, chDB,
+		chdbraft.TableConfig{Name: "product", RefSize: 0, TableType: chdbraft.TableTypeKV},
+		chdbraft.TableConfig{Name: "product_review", RefSize: 1, TableType: chdbraft.TableTypeAutoIncrement},
+	)
 	if err != nil {
 		log.Fatal().Msgf("UHUY %v", err)
 	}
@@ -120,18 +123,32 @@ func enableChDBStorageModule(appCtx context.Context, router *httprouter.Router) 
 	if !ok {
 		log.Fatal().Msgf("err get repository: %v", err)
 	}
+	productReviewRepo, ok := app.GetRepository(raftInst, "product_review")
+	if !ok {
+		log.Fatal().Msgf("err get repository: %v", err)
+	}
 
 	productUsecase := mycontent_base.New[*entity.Product](productRepo)
+	productReviewUsecase := mycontent_base.New[*entity.ProductReview](productReviewRepo)
 
 	productHandler := mycontentapi.New(
 		productUsecase,
 		publicBaseURL+"/product",
 		nil,
 	)
+	productReviewHandler := mycontentapi.New(
+		productReviewUsecase,
+		publicBaseURL+"/product/review",
+		[]string{"product_id"},
+	)
 
 	router.GET("/product", productHandler.Get)
 	router.POST("/product", productHandler.Post)
 	router.DELETE("/product", productHandler.Delete)
+
+	router.GET("/product/review", productReviewHandler.Get)
+	router.POST("/product/review", productReviewHandler.Post)
+	router.DELETE("/product/review", productReviewHandler.Delete)
 
 	// start serving mutation to the underlying storage
 	err = raftInst.Run(appCtx, nil)
