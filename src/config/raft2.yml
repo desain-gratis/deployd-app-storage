@@ -9,3 +9,10 @@ replica:
       - http://storage3:21523
     bind_address: storage2:21522
     join: false
+  storage-chdb:
+    cluster:
+      - http://storage1:21531
+      - http://storage2:21532
+      - http://storage3:21533
+    bind_address: storage2:21532
+    join: false

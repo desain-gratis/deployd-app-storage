@@ -1,8 +1,14 @@
-FROM alpine:latest
+FROM ubuntu:24.04
 
 # Allow hit https endpoint from inside 
-RUN apk --no-cache add ca-certificates
-RUN update-ca-certificates
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    bash \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install chDB library
+RUN curl -sL https://lib.chdb.io | bash
 
 # important for cleanly closing connection
 STOPSIGNAL SIGINT
